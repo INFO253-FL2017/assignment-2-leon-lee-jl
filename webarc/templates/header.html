@@ -1,0 +1,29 @@
+<header>
+	<nav class="navbar navbar-inverse bg-primary">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/index">BLOGGER</a>
+			</div>
+			<ul class="nav navbar-nav">
+
+				{% if request.path == "/index" %}
+				<li class="active"><a href="#">Home</a></li>
+				<li><a href="/about">About Me</a></li>
+				<li><a href="/contact">Contact Me</a></li>
+				{% elif request.path == "/about" %}
+				<li><a href="/index">Home</a></li>
+				<li class="active"><a href="#">About Me</a></li>
+				<li><a href="/contact">Contact Me</a></li>
+				{% elif request.path == "/contact" %}
+				<li><a href="/index">Home</a></li>
+				<li><a href="/about">About Me</a></li>
+				<li class="ac"><a href="#">Contact Me</a></li>				
+				{% else %}
+				<li class="active"><a href="#">Blogs</a></li>
+				<li><a href="/about">About Me</a></li>
+				<li><a href="/contact">Contact Me</a></li>
+				{% endif %}
+			</ul>
+		</div>
+	</nav>
+</header>

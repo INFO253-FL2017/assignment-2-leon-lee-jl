@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Blogger</title>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<script src="{{url_for('static', filename='js/script.js')}}"></script>
+	</head>
+	{% if request.path == "/index" %}
+		<body>
+	{% elif request.path == "/blog/8-experiments-in-motivation" %}
+		<body onload="loadComments(1)">
+	{% elif request.path == "/blog/a-mindful-shift-of-focus " %}
+		<body onload="loadComments(2)">
+	{% elif request.path == "/blog/how-to-develop-an-awesome-sense-of-direction" %}
+		<body onload="loadComments(3)">
+	{% elif request.path == "/blog/training-to-be-a-good-writer" %}
+		<body onload="loadComments(4)">
+	{% elif request.path == "/blog/what-productivity-systems-wont-solve" %}
+		<body onload="loadComments(5)">
+	{% endif %}
+
+		{% include 'header.html' %}
+
+		{% block content %}{% endblock %}
+
+		{% include 'footer.html' %}
+	</body>
+</html>
