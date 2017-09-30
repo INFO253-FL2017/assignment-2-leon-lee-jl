@@ -5,16 +5,38 @@ function sendMessage() {
 	var subject = document.getElementById("subjectInput").value;
 	var message = document.getElementById("messageInput").value;
 	if (name != "" && subject != "" && message != "") {
-		var div = '<div class="alert alert-success alert-dismissable"> \
-					<a href="#" onclick="closeAlert()" class="close" data-dismiss="alert" aria-label="close">&times;</a> \
-					<strong>Your message has been sent!</strong>\
-					</div>';
-	var alertDiv = document.getElementsByClassName("alert")[0];
-	alertDiv.innerHTML += div;
-	document.getElementById("nameInput").value = "";
-	document.getElementById("subjectInput").value = "";
-	document.getElementById("messageInput").value = "";
-	return;
+
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", 'send-email', true);
+		xhr.setRequestHeader('Content-Type', 'application/json');
+		xhr.send(JSON.stringify({
+			name: name,
+			subject: subject,
+			message: message
+		}));
+
+		xhr.onload = function() {
+		  var data = JSON.parse(this.responseText);
+		  if (data['status'] == 200) {
+		  	var div = '<div class="alert alert-success alert-dismissable"> \
+						<a href="#" onclick="closeAlert()" class="close" data-dismiss="alert" aria-label="close">&times;</a> \
+						<strong>Hey ' + name + ', your message has been\
+						 sent!</strong>\
+						</div>';
+		  } else {
+		  	var div = '<div class="alert alert-danger alert-dismissable"> \
+						<a href="#" onclick="closeAlert()" class="close" data-dismiss="alert" aria-label="close">&times;</a> \
+						<strong>Email sent error!</strong>\
+						</div>';
+		  }
+		  var alertDiv = document.getElementsByClassName("alert")[0];
+		  closeAlert();
+		  alertDiv.innerHTML += div;
+		  document.getElementById("nameInput").value = "";
+		  document.getElementById("subjectInput").value = "";
+		  document.getElementById("messageInput").value = "";
+		  return;
+		};
 	}
 	var fields = ""
 	if (name == "") {
