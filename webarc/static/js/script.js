@@ -131,9 +131,10 @@ function submitComment(blogId) {
 
 
 function loadComments(blogId) {
+	getWeatherAsync();
+
 	if (localStorage.getItem('comments')) {
 		allComments = JSON.parse(localStorage.getItem('comments'));
-		console.log(allComments);
 		for (var i = 0; i <allComments.length; i++) {
 			if (allComments[i]['id'] == blogId) {
 				var thisComment = '<div class="previous-comments"> \
@@ -145,6 +146,29 @@ function loadComments(blogId) {
 			}
 		}
 	}
-
 }
 
+
+function getWeatherAsync()
+{
+
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            displayWeather(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", 'http://api.openweathermap.org/data/2.5/weather?id=4376623&appid=6f176f770005bb971935e584b5c4688c', true); // true for asynchronous
+    xmlHttp.send(null);
+}
+
+function displayWeather(data) {
+	var newData = JSON.parse(data);
+	console.log(newData);
+
+	var div = '<h2>Weahter of Berkeley</h2> \
+				<p>' + newData['weather'][0]['main']+'</p>\
+				<p>' + newData['main']['temp_min'] + ' ~ ' + newData['main']['temp_max'] +' F</p>' ;
+	var weathertDiv = document.getElementsByClassName("weather")[0];
+	weathertDiv.innerHTML += div;
+
+}
