@@ -29,7 +29,7 @@ def send_email():
         "https://api.mailgun.net/v3/" + app.config['MG_DOMAIN'] + "/messages",
         auth=("api", app.config['MG_KEY']),
         data={"from": "Blogger User " + post_data['name']
-                      +"<mailgun@leonlee.com>",
+                      +"<" + post_data['email'] + ">",
               "to": [app.config['RECIPIENT']],
               "subject": post_data['subject'],
               "text": post_data['message']})

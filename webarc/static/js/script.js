@@ -2,13 +2,17 @@
 function sendMessage() {
 	closeAlert();
 	var name = document.getElementById("nameInput").value;
+	var email = document.getElementById("emailInput").value;
 	var subject = document.getElementById("subjectInput").value;
 	var message = document.getElementById("messageInput").value;
 
-	if (name == "" || subject == "" || message == "") {
+	if (name == "" || email == "" || subject == "" || message == "") {
 			var fields = ""
 			if (name == "") {
 				fields += ", Name";
+			}
+			if (email == "") {
+				fields += ", Email";
 			}
 
 			if (subject == "") {
@@ -31,12 +35,13 @@ function sendMessage() {
 	}
 
 
-	if (name != "" && subject != "" && message != "") {
+	if (name != "" && email != "" && subject != "" && message != "") {
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", 'send-email', true);
 		xhr.setRequestHeader('Content-Type', 'application/json');
 		xhr.send(JSON.stringify({
 			name: name,
+			email: email,
 			subject: subject,
 			message: message
 		}));
@@ -59,6 +64,7 @@ function sendMessage() {
 		  closeAlert();
 		  alertDiv.innerHTML += div;
 		  document.getElementById("nameInput").value = "";
+		  document.getElementById("emailInput").value = "";
 		  document.getElementById("subjectInput").value = "";
 		  document.getElementById("messageInput").value = "";
 		  return;
