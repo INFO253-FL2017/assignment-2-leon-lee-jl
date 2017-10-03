@@ -1,5 +1,7 @@
 from flask import render_template, request, jsonify
 from flask import Blueprint
+import requests
+from webarc import app
 
 main_blueprint = Blueprint('main', __name__,)
 
@@ -23,7 +25,15 @@ def contact():
 def send_email():
     post_data = request.json
 
+    a = requests.post(
+        "https://api.mailgun.net/v3/" + app.config['MG_DOMAIN'] + "/messages",
+        auth=("api", app.config['MG_KEY']),
+        data={"from": "Blogger User " + post_data['name']
+                      +"<mailgun@leonlee.com>",
+              "to": [app.config['RECIPIENT']],
+              "subject": post_data['subject'],
+              "text": post_data['message']})
     response = {
-        'status': 200
+        'status': a.status_code
     }
     return jsonify(**response)

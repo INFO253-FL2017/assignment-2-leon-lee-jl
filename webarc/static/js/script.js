@@ -4,8 +4,34 @@ function sendMessage() {
 	var name = document.getElementById("nameInput").value;
 	var subject = document.getElementById("subjectInput").value;
 	var message = document.getElementById("messageInput").value;
-	if (name != "" && subject != "" && message != "") {
 
+	if (name == "" || subject == "" || message == "") {
+			var fields = ""
+			if (name == "") {
+				fields += ", Name";
+			}
+
+			if (subject == "") {
+				fields += ", Subject";
+			}
+
+			if (message == "") {
+				fields += ", Message";
+			}
+
+			fields = fields.substr(1);
+
+			var div = '<div class="alert alert-danger alert-dismissable"> \
+						<a href="#" onclick="closeAlert()" class="close" data-dismiss="alert" aria-label="close">&times;</a> \
+						<strong>You need to fill out ' + fields + '!</strong>\
+						</div>';
+			var alertDiv = document.getElementsByClassName("alert")[0];
+			alertDiv.innerHTML += div;
+			return
+	}
+
+
+	if (name != "" && subject != "" && message != "") {
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", 'send-email', true);
 		xhr.setRequestHeader('Content-Type', 'application/json');
@@ -38,28 +64,6 @@ function sendMessage() {
 		  return;
 		};
 	}
-	var fields = ""
-	if (name == "") {
-		fields += ", Name";
-	}
-
-	if (subject == "") {
-		fields += ", Subject";
-	}
-
-	if (message == "") {
-		fields += ", Message";
-	}
-
-	fields = fields.substr(1);
-
-	var div = '<div class="alert alert-danger alert-dismissable"> \
-				<a href="#" onclick="closeAlert()" class="close" data-dismiss="alert" aria-label="close">&times;</a> \
-				<strong>You need to fill out ' + fields + '!</strong>\
-				</div>';
-	var alertDiv = document.getElementsByClassName("alert")[0];
-	alertDiv.innerHTML += div;
-	return
 }
 
 // Close alert box.
