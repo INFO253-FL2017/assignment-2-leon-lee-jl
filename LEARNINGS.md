@@ -1,3 +1,12 @@
+
+**To run my code, please use**
+
+```shell
+python3 manage.py runserver
+```
+
+**All configurations are in settings.py.**
+
 # Q/A
 
 1. What is the function of the following technologies in your assignment:
@@ -15,7 +24,6 @@ HTML is like the skeleton of web pages. In this assignment I separated html into
 
 
 3. How does Python and Flask work together in the server for this assignment?
-F
 Flask is the web server framework written in Python. In this assignment, I used Flask's interfaces to mostly implement viewers. The codes were then interpreted by python interpretation engine, which finally opened a port to listen to client requests and respond with corresponding resources.
 
 
@@ -24,5 +32,3 @@ Flask is the web server framework written in Python. In this assignment, I used 
 4. List all of the possible GET and POST requests that your server returns a response for and describes what happens for each GET and POST request.
 
  - POST contact form data to server. The page promotes a "successfully sending email" message when server responds 200, and a "email sent error" message if status code is not 200.
-
- -

@@ -163,9 +163,9 @@ function getWeatherAsync()
 
 function displayWeather(data) {
 	var newData = JSON.parse(data);
-	console.log(newData);
+	// console.log(newData);
 
-	var div = '<h2>Weahter of Berkeley</h2> \
+	var div = '<h2>Weather of Berkeley</h2> \
 				<p>' + newData['weather'][0]['main']+'</p>\
 				<p>' + newData['main']['temp_min'] + ' ~ ' + newData['main']['temp_max'] +' F</p>' ;
 	var weathertDiv = document.getElementsByClassName("weather")[0];
